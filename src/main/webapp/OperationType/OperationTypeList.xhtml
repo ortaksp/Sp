@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Kullanıcılar</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:dataTable value="#{operationTypeController.operationTypes}" var="o" selection="#{operationTypeController.operationType}"
+                         rowKey="#{o.operationTypeid}">
+                <p:column selectionMode="single" style="width:16px;text-align:center" />
+                <f:facet name="header">
+                     Operation Type 
+                </f:facet>
+                <p:column headerText="Operasyon Adı">
+                    <h:outputText value="#{o.operationTypeName}" />
+                </p:column>
+                
+            </p:dataTable>
+            
+            <p:commandButton value="Operasyon Ekle" onclick="PF('operationTypeAddDialog').show();" actionListener="#{operationTypeController.addOperationType()}"/>
+              <p:dialog header="Operasyon Ekle" widgetVar="operationTypeAddDialog" minHeight="40">
+                <h:panelGrid columns="4" cellpadding="5">
+                    <h:outputLabel value="Operasyon Adı"/>
+                    <p:inputText value="#{operationTypeController.operationType.operationTypeName}"/>
+                 
+                    
+                    
+                    <p:commandButton value="Ekle" actionListener="#{operationTypeController.save()}" icon="ui-icon-check" onclick="PF('operationTypeAddDialog').hide();" update="form" />
+
+                </h:panelGrid>
+              </p:dialog>
+        </h:form>
+    </h:body>
+</html>

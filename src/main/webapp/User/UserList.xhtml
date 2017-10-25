@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Kullanıcılar</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:dataTable value="#{userController.users}" var="u" selection="#{userController.user}"
+                         rowKey="#{u.userid}">
+                <p:column selectionMode="single" style="width:16px;text-align:center" />
+                <f:facet name="header">
+                     Kullanıcılar
+                </f:facet>
+                <p:column headerText="Id">
+                    <h:outputText value="#{u.userid}" /> 
+                </p:column>
+                <p:column headerText="Kullanıcı Adı">
+                    <h:outputText value="#{u.userName}" />
+                </p:column>
+                <p:column headerText="Parola">
+                    <h:outputText value="#{u.password}" /> 
+                </p:column>
+                 <p:column headerText="mail">
+                     <h:outputText value="#{u.mail}" /> 
+                </p:column> 
+                <p:column headerText="operasyon adı">
+                    <h:outputText value="#{u.operationTypeid.operationTypeName}" /> 
+                </p:column> 
+                 <p:column headerText="lokasyon - şehir">
+                     <h:outputText value="#{u.locationid.city}" /> 
+                </p:column> 
+                 <p:column headerText="Role">
+                     <h:outputText value="#{u.roleid.roleName}" /> 
+                </p:column> 
+            </p:dataTable>
+            
+            <p:commandButton value="Kullanıcı Ekle" onclick="PF('userAddDialog').show();"/>
+              <p:dialog header="User Ekle" widgetVar="userAddDialog" minHeight="40">
+                <h:panelGrid columns="4" cellpadding="5">
+                    <h:outputLabel value="Adı"/>
+                    <p:inputText value="#{u.userName}"/>
+                    <h:outputLabel value="Parola"/>
+                    <p:inputText value="#{u.password}"/>
+                    <h:outputLabel value="Role"/>
+                    
+                    
+                    <p:commandButton value="Ekle" actionListener="#{userController.save()}" icon="ui-icon-check" onclick="PF('userAddDialog').hide();" update="form" />
+
+                </h:panelGrid>
+              </p:dialog>
+        </h:form>
+    </h:body>
+</html>
